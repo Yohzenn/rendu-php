@@ -46,41 +46,6 @@
                 <div class="exercises-grid">
                     {% for exercise in exercises %}
                         <div class="exercise-card">
-                            {% if exercise.media %}
-                                {% if exercise.media.contentUrl is defined %}
-                                    <div class="exercise-image">
-                                        <img src="{{ exercise.media.contentUrl }}" alt="{{ exercise.titlz }}" class="exercise-image-img">
-                                    </div>
-                                {% elseif exercise.media is iterable and exercise.media.contentUrl is not defined %}
-                                    {% set mediaUrl = exercise.media['@id'] ?? exercise.media.id ?? null %}
-                                    {% if mediaUrl %}
-                                        <div class="exercise-image">
-                                            <img src="{{ mediaUrl }}" alt="{{ exercise.titlz }}" class="exercise-image-img">
-                                        </div>
-                                    {% else %}
-                                        <div class="exercise-image exercise-image-placeholder">
-                                            <svg width="100%" height="100%" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect width="300" height="200" fill="#2a2a2a"/>
-                                                <text x="150" y="100" text-anchor="middle" fill="#666" font-size="16" font-family="Arial, sans-serif">Aucune image</text>
-                                            </svg>
-                                        </div>
-                                    {% endif %}
-                                {% else %}
-                                    <div class="exercise-image exercise-image-placeholder">
-                                        <svg width="100%" height="100%" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect width="300" height="200" fill="#2a2a2a"/>
-                                            <text x="150" y="100" text-anchor="middle" fill="#666" font-size="16" font-family="Arial, sans-serif">Aucune image</text>
-                                        </svg>
-                                    </div>
-                                {% endif %}
-                            {% else %}
-                                <div class="exercise-image exercise-image-placeholder">
-                                    <svg width="100%" height="100%" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect width="300" height="200" fill="#2a2a2a"/>
-                                        <text x="150" y="100" text-anchor="middle" fill="#666" font-size="16" font-family="Arial, sans-serif">Aucune image</text>
-                                    </svg>
-                                </div>
-                            {% endif %}
                             <div class="exercise-content">
                                 <h3 class="exercise-name">{{ exercise.titlz }}</h3>
                                 {% if exercise.content %}
