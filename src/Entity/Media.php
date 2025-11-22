@@ -67,7 +67,7 @@ class Media
 
     #[ORM\OneToOne(inversedBy: 'media', cascade: ['persist', 'remove'])]
     #[Groups(['read'])]
-    private ?Product $product = null;
+    private ?Exercise $exercise = null;
 
     #[ApiProperty(types: ['https://schema.org/contentUrl'])]
     #[Groups(['read'])]
@@ -94,14 +94,14 @@ class Media
         return $this;
     }
 
-    public function getProduct(): ?Product
+    public function getExercise(): ?Exercise
     {
-        return $this->product;
+        return $this->exercise;
     }
 
-    public function setProduct(?Product $product): static
+    public function setExercise(?Exercise $exercise): static
     {
-        $this->product = $product;
+        $this->exercise = $exercise;
 
         return $this;
     }

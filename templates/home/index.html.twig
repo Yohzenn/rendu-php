@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FITLAB - Make Your Body Shape{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="home-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <header class="header">
+                <div class="logo-container">
+                    <svg class="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="6" r="2" fill="white"/>
+                        <circle cx="6" cy="12" r="2" fill="white"/>
+                        <circle cx="18" cy="12" r="2" fill="white"/>
+                        <line x1="12" y1="6" x2="6" y2="12" stroke="white" stroke-width="1.5"/>
+                        <line x1="12" y1="6" x2="18" y2="12" stroke="white" stroke-width="1.5"/>
+                        <line x1="6" y1="12" x2="18" y2="12" stroke="white" stroke-width="1.5"/>
+                        <rect x="10" y="10" width="4" height="4" fill="white"/>
+                    </svg>
+                    <h1 class="logo-text">FITLAB</h1>
+                </div>
+            </header>
+
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="since-text">DEPUIS 2025</p>
+                    <h2 class="hero-title">
+                        <span>MAKE YOUR</span>
+                        <span class="title-accent">BODY SHAPE</span>
+                    </h2>
+                    <p class="hero-description">
+                        TRANSFORME TON CORPS AVEC NOS PROGRAMMES FITNESS ADAPTÉS POUR CHAQUE PERSONNES TROPPP BG
+                    </p>
+                    <button class="cta-button">CONNEXION</button>
+                </div>
+                <div class="hero-image">
+                    <img src="{{ asset('hero.png') }}" alt="Fitness training" class="hero-image-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Training Programs Section -->
+        <section class="training-programs-section">
+            <h2 class="section-title">TRAINING PROGRAMS</h2>
+            <div class="programs-grid">
+                <a href="{{ path('app_exercises', {slug: 'pectoraux'}) }}" class="program-card-link">
+                    <div class="program-card">
+                        <div class="program-image">
+                            <img src="{{ asset('pec.png') }}" alt="Pectoraux" class="program-image-img">
+                        </div>
+                        <h3 class="program-name">PECTORAUX</h3>
+                    </div>
+                </a>
+
+                <a href="{{ path('app_exercises', {slug: 'dos'}) }}" class="program-card-link">
+                    <div class="program-card">
+                        <div class="program-image">
+                            <img src="{{ asset('dos.png') }}" alt="Dos" class="program-image-img">
+                        </div>
+                        <h3 class="program-name">DOS</h3>
+                    </div>
+                </a>
+
+                <a href="{{ path('app_exercises', {slug: 'jambes'}) }}" class="program-card-link">
+                    <div class="program-card">
+                        <div class="program-image">
+                            <img src="{{ asset('jambes.png') }}" alt="Jambes" class="program-image-img">
+                        </div>
+                        <h3 class="program-name">JAMBES</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+

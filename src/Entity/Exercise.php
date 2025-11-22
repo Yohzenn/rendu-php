@@ -12,14 +12,14 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
-use App\Repository\ProductRepository;
+use App\Repository\ExerciseRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Entity(repositoryClass: ExerciseRepository::class)]
 #[ApiResource(
     operations: [
         new GetCollection(),
@@ -43,7 +43,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     DateFilter::class,
     properties: ['createdAt']
 )]
-class Product
+class Exercise
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -63,10 +63,10 @@ class Product
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    private ?Category $category = null;
+    #[ORM\ManyToOne(inversedBy: 'exercises')]
+    private ?MuscleGroup $muscleGroup = null;
 
-    #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'exercise', cascade: ['persist', 'remove'])]
     #[Groups('read')]
     private ?Media $media = null;
 
@@ -116,14 +116,14 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getMuscleGroup(): ?MuscleGroup
     {
-        return $this->category;
+        return $this->muscleGroup;
     }
 
-    public function setCategory(?Category $category): static
+    public function setMuscleGroup(?MuscleGroup $muscleGroup): static
     {
-        $this->category = $category;
+        $this->muscleGroup = $muscleGroup;
 
         return $this;
     }
@@ -137,12 +137,12 @@ class Product
     {
         // unset the owning side of the relation if necessary
         if ($media === null && $this->media !== null) {
-            $this->media->setProduct(null);
+            $this->media->setExercise(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($media !== null && $media->getProduct() !== $this) {
-            $media->setProduct($this);
+        if ($media !== null && $media->getExercise() !== $this) {
+            $media->setExercise($this);
         }
 
         $this->media = $media;
@@ -150,3 +150,4 @@ class Product
         return $this;
     }
 }
+

@@ -7,14 +7,14 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
-use App\Repository\CategoryRepository;
+use App\Repository\MuscleGroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[ORM\Entity(repositoryClass: MuscleGroupRepository::class)]
 #[ApiResource(
     operations: [
         new GetCollection(),
@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ]
 )]
 #[UniqueEntity('title')]
-class Category
+class MuscleGroup
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,14 +36,14 @@ class Category
     private ?string $title = null;
 
     /**
-     * @var Collection<int, Product>
+     * @var Collection<int, Exercise>
      */
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
-    private Collection $products;
+    #[ORM\OneToMany(targetEntity: Exercise::class, mappedBy: 'muscleGroup')]
+    private Collection $exercises;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->exercises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,32 +64,33 @@ class Category
     }
 
     /**
-     * @return Collection<int, Product>
+     * @return Collection<int, Exercise>
      */
-    public function getProducts(): Collection
+    public function getExercises(): Collection
     {
-        return $this->products;
+        return $this->exercises;
     }
 
-    public function addProduct(Product $product): static
+    public function addExercise(Exercise $exercise): static
     {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-            $product->setCategory($this);
+        if (!$this->exercises->contains($exercise)) {
+            $this->exercises->add($exercise);
+            $exercise->setMuscleGroup($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): static
+    public function removeExercise(Exercise $exercise): static
     {
-        if ($this->products->removeElement($product)) {
+        if ($this->exercises->removeElement($exercise)) {
             // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
+            if ($exercise->getMuscleGroup() === $this) {
+                $exercise->setMuscleGroup(null);
             }
         }
 
         return $this;
     }
 }
+
